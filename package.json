@@ -8,8 +8,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "![Logo](./assets/FxNoBack.png)",
+  "license": "MIT",
+  "description": "fxwizard websocket",
   "dependencies": {
     "ws": "^8.18.3"
   },

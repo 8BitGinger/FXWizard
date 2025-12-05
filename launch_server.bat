@@ -1,6 +1,5 @@
 @echo off
 REM Navigate to the project directory
-cd "C:\Users\Living Room\Documents\Github\FXWizard"
-
+cd "C:\Users\JohnDoe\Projects\FXWizard"
 REM Run the Node.js server
 node server.js

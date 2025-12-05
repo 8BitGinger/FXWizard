@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Changa+One:ital@0;1&family=Lobster&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css"> 
+    <title>FX Wizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'dodgerblue',
+                        'secondary': '#f97316',
+                        'bg-dark': '#2a2a2a',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg-dark text-white min-h-screen w-full p-0">
+
+    <div id="app" class="w-full h-full"> 
+     <!-- Connection Status (CORRECT LOCATION) -->
+            <div id="controller-status" class="mb-1 text-sm p-3 bg-gray-600  w-full">
+                Connection Status: <span id="controller-connection" class="font-medium text-red-400">CLOSED</span>
+            </div>
+        <!-- Controller Interface (Input/Sender Page) -->
+        <div id="controller-view" class="interface-view mb-5 hidden controller-max-width mx-auto">
+            
+            <div class="space-y-3 p-2  rounded-lg w-full">
+                                <div class="w-full">
+                    <label for="button-name-input" class="block text-sm font-medium mb-1">Primary:</label>
+                    <input type="text" id="button-name-input" placeholder="e.g., Host, Guest"
+                           class="w-full p-2 rounded-lg border-2 border-white bg-transparent text-white focus:ring-green-600 focus:border-green-800 transition-all text-sm focus:bg-gray-500"
+                           maxlength="50">
+                </div>
+                <div class="w-full">
+                    <label for="title-input" class="block text-sm font-medium mb-1">Secondary:</label>
+                    <input type="text" id="title-input" placeholder="e.g., Title"
+                           class="w-full p-2 rounded-lg border-2 border-white bg-transparent text-white focus:ring-green-600 focus:border-green-800 transition-all text-sm focus:bg-gray-500"
+                           maxlength="50">
+                </div>
+
+                <div class="w-full">
+                    <label for="duration-input" class="block text-sm font-medium mb-1">Duration (sec):</label>
+                    <input type="number" id="duration-input" placeholder="e.g., 8 (default is 5s)" value="5"
+                        class="w-full p-2 rounded-lg border-2 border-white bg-transparent text-white focus:ring-green-600 focus:border-green-800    focus:bg-gray-500          transition-all text-sm"
+                    min="1" max="60">
+                </div>
+
+                <!-- FONT SELECTION -->
+                <div>
+                    <p class="block text-sm font-medium mb-2 text-center">Font Style:</p>
+                    <div id="font-selector" class="location-grid font-grid grid-cols-3 text-sm text-gray-300">
+                        <input type="radio" id="font-default" name="fontStyle" value="font-default" checked><label for="font-default" class="font-default text-xs">Default</label>
+                        <input type="radio" id="font-script" name="fontStyle" value="font-script"><label for="font-script" style="font-family: 'Lobster', sans-serif;">Script</label>
+                        <input type="radio" id="font-fun" name="fontStyle" value="font-fun"><label for="font-fun" class="font-fun">Fun</label>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="block text-sm font-medium mb-2 text-center">Animation Style:</p>
+                    <div id="animation-selector" class="location-grid grid-cols-3 text-sm text-gray-300">
+                        <input type="radio" id="anim-slideUp" name="animationStyle" value="anim-slideUp" checked><label for="anim-slideUp">Slide Up</label>
+                        <input type="radio" id="anim-fade" name="animationStyle" value="anim-fade"><label for="anim-fade">Fade In</label>
+                        <input type="radio" id="anim-slideLeft" name="animationStyle" value="anim-slideLeft"><label for="anim-slideLeft">Slide Left</label>
+                    </div>
+                </div>
+
+                <!-- Location Grid -->
+                <div class="w-full">
+                    <p class="block text-sm font-medium mb-2 text-center">Location:</p>
+                    <div id="location-selector" class="location-grid text-sm text-gray-300">
+                        <input type="radio" id="loc-TL" name="location" value="Top Left"><label for="loc-TL">TL</label>
+                        <input type="radio" id="loc-TM" name="location" value="Top Middle"><label for="loc-TM">TM</label>
+                        <input type="radio" id="loc-TR" name="location" value="Top Right"><label for="loc-TR">TR</label>
+                        
+                        <input type="radio" id="loc-CL" name="location" value="Center Left"><label for="loc-CL">CL</label>
+                        <input type="radio" id="loc-CM" name="location" value="Center Middle"><label for="loc-CM">CM</label>
+                        <input type="radio" id="loc-CR" name="location" value="Center Right"><label for="loc-CR">CR</label>
+                        
+                        <input type="radio" id="loc-BL" name="location" value="Bottom Left"><label for="loc-BL">BL</label>
+                        <input type="radio" id="loc-BM" name="location" value="Bottom Middle"><label for="loc-BM">BM</label>
+                        <input type="radio" id="loc-BR" name="location" value="Bottom Right"><label for="loc-BR">BR</label>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-gray-700">
+                    <button id="instant-send-button"
+                            class="py-2 px-1 bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg transform transition-transform duration-150 active:scale-95 text-md"
+                            onclick="instantSend()">
+                        ⚡Instant
+                    </button>
+                    <button id="save-button"
+                            class="py-2 px-1 bg-secondary hover:bg-orange-600 text-white font-bold  shadow-lg transform transition-transform duration-150 active:scale-95 text-md"
+                            onclick="saveButton()">
+                        💾 SAVE
+                    </button>
+                </div>
+            </div>
+
+       
+            
+            <p id="controller-feedback" class="text-sm mt-3 text-green-400 h-5"></p>
+
+            <!-- Saved Lowers Heading (CORRECT LOCATION) -->
+            <h2 class="text-base font-bold mt-0 mb-2 border-b border-gray-600 pb-1 w-full text-center">Saved Lowers</h2>
+            
+            <!-- Saved Buttons Container -->
+            <div id="saved-buttons-container" class="grid grid-cols-1 gap-2 w-full">
+            </div>
+        </div>
+
+        <!-- Display Interface (Output Page) -->
+        <div id="display-view" class="interface-view hidden">
+            <h1 class="text-4xl font-extrabold mb-8 text-center text-secondary hidden">OBS Display (Receiver)</h1>
+            
+            <div id="display-box" class="shadow-inner">
+                <p id="action-name" class="text-6xl font-black text-center text-white text-shadow break-words max-w-full">
+                    </p>
+                <h4 id="action-title" class="text-5xl font-bold text-center text-secondary text-shadow break-words max-w-full">
+                    </>
+            </div>
+            
+            <!-- Display Connection Status (DEBUG ELEMENT - Hidden by CSS rule in <style>) -->
+            <div id="display-status" class="mt-6 text-sm p-3 rounded-lg bg-gray-700 absolute bottom-0 right-0">
+                Connection Status: <span id="display-connection" class="font-medium text-red-400">CLOSED</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // --- Global Variables ---
+        const SOCKET_URL = 'ws://localhost:8080';
+        const STORAGE_KEY = 'studio_buttons';
+        let ws = null;
+        let retryInterval = 1000;
+        let isController = false;
+        let displayTimeout = null; 
+
+        // --- Location to CSS Map (STABILITY FIX APPLIED) ---
+        const LOCATION_MAP = {
+            "Top Left": { top: '5vh', left: '5vw', right: 'auto', transform: 'none', textAlign: 'left', alignItems: 'left' },
+            "Top Middle": { top: '5vh', left: '0', right: '0', transform: 'none', margin: '0 auto', textAlign: 'left', alignItems: 'left' },
+            "Top Right": { top: '5vh', right: '5vw', left: 'auto', transform: 'none', textAlign: 'left', alignItems: 'left' },
+
+            "Center Left": { top: '50vh', left: '5vw', right: 'auto', transform: 'translateY(-50%)', textAlign: 'left', alignItems: 'left' },
+            "Center Middle": { top: '50vh', left: '0', right: '0', transform: 'none', margin: '0 auto', textAlign: 'left', alignItems: 'left' },
+            "Center Right": { top: '50vh', right: '5vw', left: 'auto', transform: 'translateY(-50%)', textAlign: 'left', alignItems: 'left' },
+
+            "Bottom Left": { bottom: '5vh', left: '5vw', right: 'auto', transform: 'none', textAlign: 'left', alignItems: 'left' },
+            "Bottom Middle": { bottom: '5vh', left: '0', right: '0', transform: 'none', margin: '0 auto', textAlign: 'left', alignItems: 'left' },
+            "Bottom Right": { bottom: '5vh', right: '5vw', left: 'auto', transform: 'none', textAlign: 'left', alignItems: 'left' },
+        };
+        
+        // --- LocalStorage Functions (Unchanged) ---
+        const loadButtonsFromStorage = () => {
+            try {
+                const storedData = localStorage.getItem(STORAGE_KEY);
+                return storedData ? JSON.parse(storedData) : [];
+            } catch (e) {
+                console.error("Error loading from localStorage. Returning empty array.", e);
+                return [];
+            }
+        };
+
+        const saveButtonsToStorage = (buttons) => {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(buttons));
+                renderButtons(buttons);
+            } catch (e) {
+                console.error("Error saving to localStorage:", e);
+            }
+        };
+        
+        // --- Display Control Logic (Stable Centering) ---
+        const clearFontClasses = (element) => {
+            // This removes ALL possible font classes from the element and its children
+            const fontClasses = ['font-default', 'font-script', 'font-fun'];
+            
+            // Clear font classes from the main container
+            element.classList.remove(...fontClasses);
+            
+            // Clear font classes from the content elements explicitly
+            const actionTitle = document.getElementById('action-title');
+            const actionName = document.getElementById('action-name');
+            
+            if (actionTitle) actionTitle.classList.remove(...fontClasses);
+            if (actionName) actionName.classList.remove(...fontClasses);
+        };
+
+        const clearAnimationClasses = (element) => {
+            const animClasses = ['anim-slideUp', 'anim-fade', 'anim-slideLeft'];
+            element.classList.remove(...animClasses);
+            element.classList.remove('animate-in'); // Remove your old generic class
+            element.classList.remove('animate-glow');
+        };
+
+        const showDisplay = (data) => {
+            const displayBox = document.getElementById('display-box');
+            const actionTitle = document.getElementById('action-title');
+            const actionName = document.getElementById('action-name');
+            
+            if (displayTimeout) {
+                clearTimeout(displayTimeout);
+            }
+
+            // 1. Update Content
+            actionTitle.textContent = data.title || ''; 
+            actionName.textContent = data.label;
+            
+            // 2. Apply Font Style (CRITICAL SECTION FIX)
+            // Clear font classes from all relevant elements
+            clearFontClasses(displayBox);
+            
+            if (data.fontStyle) {
+                // Apply the font class to all three elements to maximize specificity and inheritance
+                displayBox.classList.add(data.fontStyle);
+                actionTitle.classList.add(data.fontStyle);
+                actionName.classList.add(data.fontStyle);
+            }
+            
+            // 3. Apply Location Styles
+            const locationStyles = LOCATION_MAP[data.location];
+            if (locationStyles) {
+                // Clear previous positional styles to allow new ones to apply cleanly
+                displayBox.style.top = '';
+                displayBox.style.left = '';
+                displayBox.style.right = '';
+                displayBox.style.bottom = '';
+                displayBox.style.transform = ''; // IMPORTANT: Clear old transform before animation!
+                displayBox.style.margin = '';
+                
+                Object.keys(locationStyles).forEach(key => {
+                    displayBox.style[key] = locationStyles[key];
+                });
+
+                // Apply alignment to the main container (flex-start, center, flex-end)
+                displayBox.style.alignItems = locationStyles.alignItems;
+
+                // The internal text alignment ensures the text inside the p-tags is centered/left/right.
+                actionTitle.style.textAlign = locationStyles.textAlign;
+                actionName.style.textAlign = locationStyles.textAlign;
+            }
+
+            // Ensure titles are hidden if empty to prevent empty space.
+            if (!data.title) {
+                actionTitle.style.display = 'none';
+            } else {
+                actionTitle.style.display = 'block';
+            }
+            
+            // 4. Trigger Animations
+            const animationClass = data.animationStyle || 'anim-slideUp'; // Default to slideUp
+    
+            // Clear previous animations and force reflow
+            clearAnimationClasses(displayBox);
+            displayBox.style.opacity = 0; // Ensure it starts invisible for the animation to run from 0
+            void displayBox.offsetWidth; // Force reflow
+            
+            // CRITICAL FIX ADDED HERE:
+            // Set opacity to 1 immediately so that when the 0.8s entrance animation ends, 
+            // the element stays visible until the setTimeout runs.
+            displayBox.style.opacity = 1;
+
+            displayBox.classList.add(animationClass);
+            displayBox.classList.add('animate-glow');
+            
+            
+            // 5. Set Fade Out Timeout
+            const durationMs = (data.duration ? parseInt(data.duration, 10) : 5) * 1000;
+            
+            displayTimeout = setTimeout(() => {
+                // Now when the timeout runs, it removes the animation class (which is no longer needed)
+                // and sets opacity to 0 to make it disappear.
+                clearAnimationClasses(displayBox);
+                
+                // This line handles the actual fade-out transition defined in CSS
+                displayBox.style.opacity = 0;
+            }, durationMs); 
+        };
+        
+
+        // --- WebSocket Functions (Unchanged) ---
+        const connectWebSocket = () => {
+            try {
+                ws = new WebSocket(SOCKET_URL);
+                console.log('Attempting to connect to WebSocket server...');
+                
+                retryInterval = 1000; 
+
+                ws.onopen = () => {
+                    updateStatus('OPEN', 'text-green-400', isController ? 'controller-connection' : 'display-connection');
+                    console.log('WebSocket connection established.');
+                };
+
+                ws.onmessage = (event) => {
+                    if (!isController) {
+                        try {
+                            const data = JSON.parse(event.data);
+                            showDisplay(data);
+                        } catch(e) {
+                            console.error("Received non-JSON message:", event.data);
+                        }
+                    }
+                };
+
+                ws.onclose = () => {
+                    updateStatus('CLOSED', 'text-red-400', isController ? 'controller-connection' : 'display-connection');
+                    console.log('WebSocket connection closed. Attempting reconnect...');
+                    setTimeout(connectWebSocket, retryInterval);
+                    retryInterval = Math.min(retryInterval * 2, 30000); 
+                };
+
+                ws.onerror = (error) => {
+                    console.error('WebSocket Error: Could not reach the server. Ensure your Node.js script is running.');
+                    ws.close(); 
+                };
+
+            } catch (e) {
+                console.error('WebSocket connection failed to initialize:', e);
+                updateStatus('ERROR', 'text-red-600', isController ? 'controller-connection' : 'display-connection');
+                setTimeout(connectWebSocket, retryInterval);
+            }
+        };
+
+        const updateStatus = (status, colorClass, elementId) => {
+            const statusElement = document.getElementById(elementId);
+            if (statusElement) {
+                statusElement.textContent = status;
+                statusElement.className = `font-medium ${colorClass}`;
+            }
+        };
+        
+            const sendWebSocketMessage = (title, label, location, fontStyle, duration, animationStyle) => {
+                const finalFontStyle = fontStyle || 'font-default';
+                const finalAnimStyle = animationStyle || 'anim-slideUp'; // NEW Default
+
+                const messageData = {
+                    title: title || '',
+                    label: label,
+                    location: location,
+                    fontStyle: finalFontStyle,
+                    duration: duration,
+                    animationStyle: finalAnimStyle // ADDED
+                };
+            const message = JSON.stringify(messageData);
+            const feedback = document.getElementById('controller-feedback');
+
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                try {
+                    ws.send(message);
+                    feedback.textContent = `✅ Sent: "${label}" (${finalFontStyle.replace('font-', '')}) at ${location}`;
+                    setTimeout(() => feedback.textContent = '', 3000);
+                } catch (e) {
+                    console.error('Failed to send message:', e);
+                    feedback.textContent = '❌ Failed to send. Connection error.';
+                }
+            } else {
+                feedback.textContent = '❌ Connection not open. Please check the server.';
+                setTimeout(() => feedback.textContent = '', 3000);
+            }
+        };
+        
+        // --- Button Management Functions  ---
+        const instantSend = () => {
+            const durationInput = document.getElementById('duration-input'); // ADDED
+            const titleInput = document.getElementById('title-input');
+            const labelInput = document.getElementById('button-name-input');
+            const locationElement = document.querySelector('input[name="location"]:checked');
+            const fontElement = document.querySelector('input[name="fontStyle"]:checked');
+            const animElement = document.querySelector('input[name="animationStyle"]:checked'); // NEW Input
+            const feedback = document.getElementById('controller-feedback');
+            const title = titleInput.value.trim();
+            const label = labelInput.value.trim();
+            const location = locationElement ? locationElement.value : null;
+            const fontStyle = fontElement ? fontElement.value : 'font-default'; // Use default
+            const duration = durationInput.value.trim() || '5'; // ADDED: Get duration
+            const animationStyle = animElement ? animElement.value : 'anim-slideUp'; // NEW Variable
+
+            if (!label || !location) {
+                feedback.textContent = 'Need a Name/Label AND a Location for instant send.';
+                setTimeout(() => feedback.textContent = '', 3000);
+                return;
+            }
+            
+            sendWebSocketMessage(title, label, location, fontStyle, duration, animationStyle);
+        }
+
+        const saveButton = () => {
+            const titleInput = document.getElementById('title-input');
+            const labelInput = document.getElementById('button-name-input');
+            const locationElement = document.querySelector('input[name="location"]:checked');
+            const fontElement = document.querySelector('input[name="fontStyle"]:checked');
+            const durationInput = document.getElementById('duration-input'); // ADDED
+            const animElement = document.querySelector('input[name="animationStyle"]:checked'); // NEW Input
+            const feedback = document.getElementById('controller-feedback');
+
+            const title = titleInput.value.trim();
+            const label = labelInput.value.trim();
+            const fontStyle = fontElement ? fontElement.value : 'font-default'; // Use default
+            const duration = durationInput.value.trim() || '5'; // ADDED: Get duration
+            const animationStyle = animElement ? animElement.value : 'anim-slideUp'; // NEW Variable
+
+            if (!label || !locationElement) {
+                feedback.textContent = 'Please enter a name AND select a location.';
+                setTimeout(() => feedback.textContent = '', 3000);
+                return;
+            }
+
+            const location = locationElement.value;
+            const buttons = loadButtonsFromStorage();
+
+            const newButton = {
+                id: Date.now(), 
+                title: title,
+                label: label,
+                location: location,
+                fontStyle: fontStyle, 
+                duration: duration, // ADDED: Duration to storage
+                animationStyle: animationStyle, // ADDED
+                createdAt: new Date().toISOString()
+            };
+            
+            buttons.unshift(newButton);
+            saveButtonsToStorage(buttons);
+                
+            titleInput.value = '';
+            labelInput.value = ''; 
+            feedback.textContent = `✅ Lower Third "${label}" saved!`;
+        };
+        
+        const deleteButton = (id, label) => {
+            if (!confirm(`Are you sure you want to delete the button: "${label}"?`)) return;
+
+            const buttons = loadButtonsFromStorage();
+            const updatedButtons = buttons.filter(btn => btn.id !== id);
+            
+            saveButtonsToStorage(updatedButtons);
+            document.getElementById('controller-feedback').textContent = `🗑️ Lower Third "${label}" deleted.`;
+        };
+
+        const renderButtons = (buttons) => {
+            const container = document.getElementById('saved-buttons-container');
+            container.innerHTML = ''; 
+            
+            buttons.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            buttons.forEach(data => {
+                // FIX: Ensure fontStyle defaults to prevent runtime crash
+                const displayFont = data.fontStyle || 'font-default';
+                const displayAnim = data.animationStyle || 'anim-slideUp'; // NEW Default
+                const buttonDiv = document.createElement('div');
+                buttonDiv.className = 'flex items-stretch'; 
+
+                // Decode value for display
+                const animText = displayAnim.replace('anim-', '');
+
+                
+                
+                // Send Button
+                const sendBtn = document.createElement('button');
+                sendBtn.className = 'flex-grow py-1 px-2 bg-gray-500 hover:bg-green-800 text-green-300 hover:text-white font-semibold rounded-l-lg shadow-md transition-colors text-left border-white-sm';
+                sendBtn.innerHTML = `
+                    <span class="block text-xs text-gray-300">Title: ${data.title || '—'}</span>
+                    <span class="block text-sm font-bold">${data.label}</span>
+                    <span class="block text-xs text-gray-800 hover:text-gray-300">Loc: ${data.location} | Font: ${displayFont.replace('font-', '')} </span>
+                    <span class="block text-xs text-gray-800 hover:text-gray-300"> Dur: ${data.duration || '5s'} | ${data.animationStyle} </span>
+                `;
+                
+                // Update HTML display
+                sendBtn.onclick = () => sendWebSocketMessage(
+                    data.title, 
+                    data.label, 
+                    data.location, 
+                    displayFont, 
+                    data.duration || '5', 
+                    displayAnim
+                );
+                
+                // Delete Button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'py-2 w-10 px-1 bg-red-800 hover:bg-red-700 text-white font-semibold rounded-r-lg shadow-md transition-colors flex items-center justify-center text-sm';
+                deleteBtn.textContent = 'X';
+                deleteBtn.onclick = () => deleteButton(data.id, data.label);
+
+                buttonDiv.appendChild(sendBtn);
+                buttonDiv.appendChild(deleteBtn);
+                container.appendChild(buttonDiv);
+            });
+        };
+
+        // --- Initialization ---
+        const initializeView = () => {
+            const hash = window.location.hash;
+            const controllerView = document.getElementById('controller-view');
+            const displayView = document.getElementById('display-view');
+            
+            controllerView.classList.add('hidden');
+            displayView.classList.add('hidden');
+
+            if (hash === '#controller') {
+                controllerView.classList.remove('hidden');
+                isController = true;
+                document.title = "Controller - FX Wizard";
+                renderButtons(loadButtonsFromStorage());
+            } else if (hash === '#display') {
+                document.body.classList.remove('bg-bg-dark');
+                document.body.style.backgroundColor = 'transparent';
+                
+                displayView.classList.remove('hidden');
+                isController = false;
+                document.title = "Display - OBS Source";
+                
+                document.getElementById('display-box').style.opacity = 0;
+
+            } else {
+                controllerView.classList.remove('hidden');
+                isController = true;
+                document.title = "Controller - FX Wizard";
+                renderButtons(loadButtonsFromStorage());
+            }
+            
+            connectWebSocket();
+        };
+
+        window.addEventListener('load', initializeView);
+    </script>
+</body>
+</html>

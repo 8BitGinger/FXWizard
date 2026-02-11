@@ -17,8 +17,8 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary': 'dodgerblue',
-                        'secondary': '#f97316',
+                        'primary': '#6D28D9',
+                        'secondary': '#C4A127',
                         'bg-dark': '#333333',
                     }
                 }
@@ -39,35 +39,35 @@
                 <!-- Text Inputs -->
                 <div class="flex flex-col gap-2">
                     <div class="w-full">
-                        <label for="button-name-input" class="block text-md font-medium mb-1">Name:</label>
-                        <input type="text" id="button-name-input" placeholder="Name" class="w-full p-2 rounded border-2 border-white bg-transparent text-white text-sm focus:bg-gray-500" maxlength="50">
+                        <label for="button-name-input" class="block text-md font-medium ">Name:</label>
+                        <input type="text" id="button-name-input" placeholder="Name" class="w-full p-1 rounded border-2 border-white bg-transparent text-sm text-violet-300 focus:text-white focus:bg-gray-700" maxlength="50">
                     </div>
                     <div class="w-full">
-                        <label for="title-input" class="block text-md font-medium mb-1">Title:</label>
-                        <input type="text" id="title-input" placeholder="Title" class="w-full p-2 rounded border-2 border-white bg-transparent text-white text-sm focus:bg-gray-500" maxlength="50">
+                        <label for="title-input" class="block text-md font-medium ">Title:</label>
+                        <input type="text" id="title-input" placeholder="Title" class="w-full p-1 rounded border-2 border-white bg-transparent text-sm text-violet-300 focus:text-white focus:bg-gray-700" maxlength="50">
                     </div>
                 </div>
 
                 <div class="w-full">
-                    <label for="duration-input" class="block text-md font-medium mb-1">Duration (sec):</label>
-                    <input type="number" id="duration-input" value="5" class="w-full p-2 rounded border-2 border-white bg-transparent text-white text-sm focus:bg-gray-500">
+                    <label for="duration-input" class="block text-md font-medium ">Duration (sec):</label>
+                    <input type="number" id="duration-input" value="5" class="w-full p-1 rounded border-2 border-white bg-transparent text-violet-300 text-sm focus:text-white focus:bg-gray-700">
                 </div>
 
                 <!-- Background Color -->
                 <div>
                     <p class="block text-md font-medium mb-1 text-center">Background Color:</p>
-                    <div id="bg-selector" class="grid grid-cols-2 gap-1">
+                    <div id="bg-selector" class="grid grid-cols-2 text-[12px] gap-1">
                         <input type="radio" id="bg-blue" name="bgStyle" value="blue" checked class="hidden peer/b1">
-                        <label for="bg-blue" class="p-1 border rounded text-center cursor-pointer text-md peer-checked/b1:bg-blue-600">Blue</label>
+                        <label for="bg-blue" class="p-1 border rounded text-center cursor-pointer text-md hover:scale-105 peer-checked/b1:bg-blue-600">Blue</label>
                         
                         <input type="radio" id="bg-green" name="bgStyle" value="green" class="hidden peer/b2">
-                        <label for="bg-green" class="p-1 border rounded text-center cursor-pointer text-md peer-checked/b2:bg-green-600">Green</label>
+                        <label for="bg-green" class="p-1 border rounded text-center cursor-pointer text-md hover:scale-105 peer-checked/b2:bg-green-600">Green</label>
                         
                         <input type="radio" id="bg-black" name="bgStyle" value="black" class="hidden peer/b3">
-                        <label for="bg-black" class="p-1 border rounded text-center cursor-pointer text-md peer-checked/b3:bg-black">Black</label>
+                        <label for="bg-black" class="p-1 border rounded text-center cursor-pointer text-md hover:scale-105 peer-checked/b3:bg-black">Black</label>
 
                         <input type="radio" id="bg-red" name="bgStyle" value="red" class="hidden peer/b4">
-                        <label for="bg-red" class="p-1 border rounded text-center cursor-pointer text-md peer-checked/b4:bg-red-700">Red</label>
+                        <label for="bg-red" class="p-1 border rounded text-center cursor-pointer text-md hover:scale-105 peer-checked/b4:bg-red-700">Red</label>
                     </div>
                 </div>
 
@@ -76,17 +76,17 @@
                     <p class="block text-md font-medium mb-1 text-center">Font Style:</p>
                     <div id="font-selector" class="grid grid-cols-3 gap-1 text-[12px]">
                         <input type="radio" id="font-default" name="fontStyle" value="font-default" checked class="hidden peer/f1">
-                        <label for="font-default" class="p-1 border rounded text-center cursor-pointer peer-checked/f1:bg-primary">Default</label>
+                        <label for="font-default" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f1:bg-primary">Default</label>
                         <input type="radio" id="font-script" name="fontStyle" value="font-script" class="hidden peer/f2">
-                        <label for="font-script" class="p-1 border rounded text-center cursor-pointer peer-checked/f2:bg-primary font-script">Script</label>
+                        <label for="font-script" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f2:bg-primary font-script">Script</label>
                         <input type="radio" id="font-fun" name="fontStyle" value="font-fun" class="hidden peer/f3">
-                        <label for="font-fun" class="p-1 border rounded text-center cursor-pointer peer-checked/f3:bg-primary font-fun">Fun</label>
+                        <label for="font-fun" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f3:bg-primary font-fun">Fun</label>
                         <input type="radio" id="font-modern" name="fontStyle" value="font-modern" class="hidden peer/f4">
-                        <label for="font-modern" class="p-1 border rounded text-center cursor-pointer peer-checked/f4:bg-primary font-modern">Modern</label>
+                        <label for="font-modern" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f4:bg-primary font-modern">Modern</label>
                         <input type="radio" id="font-classic" name="fontStyle" value="font-classic" class="hidden peer/f5">
-                        <label for="font-classic" class="p-1 border rounded text-center cursor-pointer peer-checked/f5:bg-primary font-classic">Classic</label>
+                        <label for="font-classic" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f5:bg-primary font-classic">Classic</label>
                         <input type="radio" id="font-accent" name="fontStyle" value="font-accent" class="hidden peer/f6">
-                        <label for="font-accent" class="p-1 border rounded text-center cursor-pointer peer-checked/f6:bg-primary font-accent">Accent</label>
+                        <label for="font-accent" class="p-1 hover:bg-violet-400 border rounded text-center cursor-pointer peer-checked/f6:bg-primary font-accent">Accent</label>
                     </div>
                 </div>
 
@@ -94,19 +94,19 @@
                 <div>
                     <p class="block text-md font-medium mb-1 text-center">Animation:</p>
                     <div id="animation-selector" class="grid grid-cols-3 gap-1 text-[12px]">
-                        <input type="radio" id="anim-slideUp" name="animationStyle" value="anim-slideUp" checked class="hidden peer/a1">
-                        <label for="anim-slideUp" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a1:bg-primary">Slide Up</label>
-                        <input type="radio" id="anim-fade" name="animationStyle" value="anim-fade" class="hidden peer/a2">
-                        <label for="anim-fade" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a2:bg-primary">Fade In</label>
-                        <input type="radio" id="anim-slideLeft" name="animationStyle" value="anim-slideLeft" class="hidden peer/a3">
-                        <label for="anim-slideLeft" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a3:bg-primary">Slide Left</label>
-                        <input type="radio" id="spin" name="animationStyle" value="anim-spinIn" class="hidden peer/a4">
-                        <label for="spin" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a4:bg-primary">Spin</label>
+                        <input type="radio" id="anim-slideUp" name="animationStyle" value="anim-slideUp" checked class="hidden  peer/a1">
+                        <label for="anim-slideUp" class="p-1 flex hover:bg-violet-400 justify-center items-center border rounded text-center cursor-pointer peer-checked/a1:bg-primary">Slide Up</label>
+                        <input type="radio" id="anim-fade" name="animationStyle" value="anim-fade" class="hidden hover:bg-violet-400 peer/a2">
+                        <label for="anim-fade" class="p-1 hover:bg-violet-400 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a2:bg-primary">Fade In</label>
+                        <input type="radio" id="anim-slideLeft" name="animationStyle" value="anim-slideLeft" class="hidden hover:bg-violet-400 peer/a3">
+                        <label for="anim-slideLeft" class="p-1 hover:bg-violet-400 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a3:bg-primary">Slide Left</label>
+                        <input type="radio" id="spin" name="animationStyle" value="anim-spinIn" class="hidden hover:bg-violet-400 peer/a4">
+                        <label for="spin" class="p-1 hover:bg-violet-400 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a4:bg-primary">Spin</label>
                         
-                        <input type="radio" id="slideRight" name="animationStyle" value="anim-slideRight" class="hidden peer/a5">
-                        <label for="slideRight" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a5:bg-primary">Slide Right</label> 
-                         <input type="radio" id="slideDown" name="animationStyle" value="anim-slideDown" class="hidden peer/a6">
-                        <label for="slideDown" class="p-1 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a6:bg-primary">Slide Down</label>
+                        <input type="radio" id="slideRight" name="animationStyle" value="anim-slideRight" class="hidden hover:bg-violet-400 peer/a5">
+                        <label for="slideRight" class="p-1 hover:bg-violet-400 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a5:bg-primary">Slide Right</label> 
+                         <input type="radio" id="slideDown" name="animationStyle" value="anim-slideDown" class="hidden hover:bg-violet-400 peer/a6">
+                        <label for="slideDown" class="p-1 hover:bg-violet-400 flex justify-center items-center border rounded text-center cursor-pointer peer-checked/a6:bg-primary">Slide Down</label>
 
                     </div>
                 </div>
@@ -115,27 +115,27 @@
                 <div>
                     <p class="block text-md font-medium mb-1 text-center">Location:</p>
                     <div id="location-selector" class="grid grid-cols-3 gap-1 text-[18px]">
-                        <input type="radio" id="loc-TL" name="location" value="Top Left" class="hidden peer/l1"><label for="loc-TL" class="border p-1 text-center cursor-pointer peer-checked/l1:bg-primary">↖</label>
-                        <input type="radio" id="loc-TM" name="location" value="Top Middle" class="hidden peer/l2"><label for="loc-TM" class="border p-1 text-center cursor-pointer peer-checked/l2:bg-primary">↑</label>
-                        <input type="radio" id="loc-TR" name="location" value="Top Right" class="hidden peer/l3"><label for="loc-TR" class="border p-1 text-center cursor-pointer peer-checked/l3:bg-primary">↗</label>
-                        <input type="radio" id="loc-CL" name="location" value="Center Left" class="hidden peer/l4"><label for="loc-CL" class="border p-1 text-center cursor-pointer peer-checked/l4:bg-primary">←</label>
-                        <input type="radio" id="loc-CM" name="location" value="Center Middle" class="hidden peer/l5"><label for="loc-CM" class="border p-1 text-center cursor-pointer peer-checked/l5:bg-primary">•</label>
-                        <input type="radio" id="loc-CR" name="location" value="Center Right" class="hidden peer/l6"><label for="loc-CR" class="border p-1 text-center cursor-pointer peer-checked/l6:bg-primary">→</label>
-                        <input type="radio" id="loc-BL" name="location" value="Bottom Left" class="hidden peer/l7"><label for="loc-BL" class="border p-1 text-center cursor-pointer peer-checked/l7:bg-primary">↙</label>
-                        <input type="radio" id="loc-BM" name="location" value="Bottom Middle" class="hidden peer/l8"><label for="loc-BM" class="border p-1 text-center cursor-pointer peer-checked/l8:bg-primary">↓</label>
-                        <input type="radio" id="loc-BR" name="location" value="Bottom Right" class="hidden peer/l9"><label for="loc-BR" class="border p-1 text-center cursor-pointer peer-checked/l9:bg-primary">↘</label>
+                        <input type="radio" id="loc-TL" name="location" value="Top Left" class="hidden peer/l1"><label for="loc-TL" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l1:bg-primary">↖</label>
+                        <input type="radio" id="loc-TM" name="location" value="Top Middle" class="hidden peer/l2"><label for="loc-TM" class="border hover:bg-violet-400 p-1 text-center cursor-pointer peer-checked/l2:bg-primary">↑</label>
+                        <input type="radio" id="loc-TR" name="location" value="Top Right" class="hidden hover:bg-violet-400 peer/l3"><label for="loc-TR" class="border hover:bg-violet-400 p-1 text-center cursor-pointer peer-checked/l3:bg-primary">↗</label>
+                        <input type="radio" id="loc-CL" name="location" value="Center Left" class="hidden peer/l4"><label for="loc-CL" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l4:bg-primary">←</label>
+                        <input type="radio" id="loc-CM" name="location" value="Center Middle" class="hidden peer/l5"><label for="loc-CM" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l5:bg-primary">•</label>
+                        <input type="radio" id="loc-CR" name="location" value="Center Right" class="hidden peer/l6"><label for="loc-CR" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l6:bg-primary">→</label>
+                        <input type="radio" id="loc-BL" name="location" value="Bottom Left" class="hidden peer/l7"><label for="loc-BL" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l7:bg-primary">↙</label>
+                        <input type="radio" id="loc-BM" name="location" value="Bottom Middle" class="hidden peer/l8"><label for="loc-BM" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l8:bg-primary">↓</label>
+                        <input type="radio" id="loc-BR" name="location" value="Bottom Right" class="hidden peer/l9"><label for="loc-BR" class="border p-1 text-center cursor-pointer hover:bg-violet-400 peer-checked/l9:bg-primary">↘</label>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-gray-700">
-                    <button class="py-1 bg-green-600 font-bold rounded" onclick="instantSend()">⚡Instant</button>
-                    <button class="py-1 bg-secondary font-bold rounded" onclick="saveButton()">💾 SAVE</button>
+                <div class="grid grid-cols-2 flex items-center justify-center gap-2 mt-4 pt-2 border-t border-gray-700">
+                    <button class="py-1 hover:bg-indigo-700 w-full m-auto active:scale-95 bg-indigo-600 font-bold rounded" onclick="instantSend()">⚡TAKE</button>
+                    <button class="py-1 hover:bg-rose-600 w-full active:scale-95 m-auto bg-rose-500 font-bold rounded" onclick="saveButton()">💾 SAVE</button>
                 </div>
             </div>
 
             <p id="controller-feedback" class="text-lg mt-3 text-green-400 h-5"></p>
-            <h2 class="text-base font-bold mt-0 mb-2 border-b border-gray-600 pb-1 w-full text-center">Saved Lowers</h2>
-            <div id="saved-buttons-container" class="grid grid-cols-1 p-1 pt-0 pr-2 gap-2 w-full"></div>
+            <h2 class="text-base font-bold h-full mt-0 mb-2 border-b border-gray-600 pb-1 w-full text-center">Saved Lowers</h2>
+            <div id="saved-buttons-container" class="grid h-full grid-cols-1 p-1 pt-0 pr-2 gap-2 w-full"></div>
         </div>
 
         <!-- Display Interface -->
@@ -283,8 +283,8 @@
             buttons.forEach(data => {
                 const div = document.createElement('div');
                 div.className = 'flex mb-1  border-solid border-2  border-gray-500 rounded';
-                div.innerHTML = `<button class="flex-grow text-white hover:text-blue-400 p-2  bg-gray-600 text-left lower-third rounded-l text-[14px]"><b class="block">${data.label}</b>${data.bgStyle} | ${data.fontStyle?.replace('font-', '')}</button>
-                                 <button class="bg-red-900 p-2 delete-btn border-2 border-red-900 rounded-r text-black hover:text-yellow-200 text-[22px] h-full" onclick="deleteButton(${data.id}, '${data.label}')">X</button>`;
+                div.innerHTML = `<button class="flex-grow text-white hover:text-violet-400 p-2  bg-gray-600 text-left lower-third rounded-l text-[14px]"><b class="block">${data.label}</b>${data.bgStyle} | ${data.fontStyle?.replace('font-', '')}</button>
+                                 <button class="bg-red-900 p-2 delete-btn border-2 border-red-900 text-center rounded-r  hover:text-yellow-200 text-[22px] h-full" onclick="deleteButton(${data.id}, '${data.label}')">␡</button>`;
                 div.firstChild.onclick = () => sendWebSocketMessage(data.title, data.label, data.location, data.fontStyle, data.duration, data.animationStyle, data.bgStyle);
                 container.appendChild(div);
             });

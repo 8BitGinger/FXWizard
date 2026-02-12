@@ -11,7 +11,7 @@
   "license": "MIT",
   "description": "fxwizard websocket",
   "dependencies": {
-    "ws": "^8.18.3"
+    "ws": "^8.19.0"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,5 @@
   "bugs": {
     "url": "https://github.com/8BitGinger/obsWebsocket/issues"
   },
-  "homepage": "https://github.com/8BitGinger/obsWebsocket#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/8BitGinger/obsWebsocket#readme"
 }

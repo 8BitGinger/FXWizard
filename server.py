@@ -1,56 +1,47 @@
 import obspython as obs
 import asyncio
 import threading
-import sys
-
-# Attempt to import the library and report failure to the log
-try:
-    import websockets
-    HAS_WEBSOCKETS = True
-except ImportError:
-    HAS_WEBSOCKETS = False
+import websockets
 
 clients = set()
 
 async def socket_handler(websocket):
     clients.add(websocket)
+    print(f"FXWizard: Client Connected. Total: {len(clients)}")
     try:
         async for message in websocket:
-            # Broadcast to all connected clients (Controller and Display)
+            # BROADCAST LOGIC
             if clients:
-                # Filter for open connections only
-                active_clients = [c for c in clients if c.open]
-                if active_clients:
-                    await asyncio.gather(*[c.send(message) for c in active_clients])
+                print(f"FXWizard: Broadcasting to {len(clients)} clients...")
+                # We create a list from the set to prevent 'size changed' errors
+                for client in list(clients):
+                    try:
+                        # Direct send; if the client is dead, it will trigger the except
+                        await client.send(message)
+                    except Exception:
+                        # Clean up dead clients on the fly
+                        clients.discard(client)
     except Exception as e:
-        print(f"FXWizard Connection Error: {e}")
+        print(f"FXWizard Socket Error: {e}")
     finally:
-        if websocket in clients:
-            clients.remove(websocket)
+        clients.discard(websocket)
+        print(f"FXWizard: Client Disconnected. Total: {len(clients)}")
 
-def run_server(loop):
+async def main_async_entry(host, port):
+    async with websockets.serve(socket_handler, host, port):
+        await asyncio.Future()  # Keep server alive
+
+def start_server_thread(loop):
     asyncio.set_event_loop(loop)
     try:
-        # Binding to 0.0.0.0 is often more reliable than localhost in local networks
-        start_server = websockets.serve(socket_handler, "0.0.0.0", 8080)
-        loop.run_until_complete(start_server)
-        print("FXWizard: Server listening on port 8080...")
-        loop.run_forever()
+        loop.run_until_complete(main_async_entry("0.0.0.0", 8080))
     except Exception as e:
-        print(f"FXWizard Server Failed to Start: {e}")
+        print(f"FXWizard Thread Error: {e}")
 
 def script_description():
-    return "FXWizard Internal WebSocket Server (Port 8080)"
+    return "FXWizard WebSocket Server"
 
 def script_load(settings):
-    if not HAS_WEBSOCKETS:
-        print("CRITICAL ERROR: 'websockets' library not found!")
-        print(f"OBS is looking in: {sys.path[0]}")
-        print("Try: 'python -m pip install websockets' in the environment linked to OBS.")
-        return
-
-    # Start the server in a background thread
-    loop = asyncio.new_event_loop()
-    t = threading.Thread(target=run_server, args=(loop,), daemon=True)
+    new_loop = asyncio.new_event_loop()
+    t = threading.Thread(target=start_server_thread, args=(new_loop,), daemon=True)
     t.start()
-    print("FXWizard: Python Server Thread Initiated.")
